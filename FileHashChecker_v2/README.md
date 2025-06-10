@@ -15,16 +15,29 @@
 4. tests/test_scanner.py를 작성하여 기본 동작 자동화
 
 FileHashChecker-v2/
+
 ├── hashchecker/
+
 │   ├── __init__.py
+
 │   ├── scanner.py         # 해시 계산 및 검사
+
 │   ├── snapshot.py        # 스냅샷 저장/비교
+
 │   ├── reporter.py        # 변화 리포트 출력
+
 │   └── notifier.py        # 알림
+
 ├── snapshots/
+
 │   └── 2025-06-10-snapshot.json
+
 ├── tests/
+
 │   └── test_scanner.py
+
 ├── main.py                # CLI 실행 진입점
+
 ├── requirements.txt
+
 └── README.md
