@@ -1,96 +1,30 @@
 # 🔐 FileHashChecker_v2
 
-**FileHashChecker** is a Python-based command-line utility to calculate and verify file hash values using various algorithms (SHA-256, SHA-1, MD5, etc.). It supports batch processing, configurable output formats, and future plans include VirusTotal integration and a GUI.
+목표: 악성코드 탐지, 무결성 검사 기능 강화
 
----
+기능	설명
+📁 디렉토리 재귀 검사: 특정 폴더 전체의 해시를 저장/비교
+📅 스냅샷 기능: 특정 시점 해시값 JSON 저장 & 비교
+📉 해시 변경 리포트: 변경된 파일만 로그로 출력 (변경 전/후 SHA256 비교)
+☁️ VirusTotal 연동: 의심 파일을 API로 자동 스캔 (API Key 필요)
+📧 경고 알림: 해시 변조 시 이메일 or 슬랙 or Discord 알림
 
-## ✅ Features
+1. hashchecker/scanner.py에 scan_directory 함수를 먼저 구현
+2. 스냅샷, 비교, 출력, 알림 기능을 module.py 파일로 분리해서 작성
+3. main.py를 실행하여 기능이 올바른지 테스트
+4. tests/test_scanner.py를 작성하여 기본 동작 자동화
 
-### 🧩 Core Functions
-- Calculate hash value of a single file (default: SHA-256)
-- Supports multiple algorithms: SHA-256, SHA-1, MD5, etc.
-- Compare calculated hash with a provided hash
-- Graceful error handling for invalid paths or hash values
-- List available hash algorithms
-
-### 📁 Batch Processing & Output
-- Batch verify multiple files by folder path
-- Optionally include subdirectories
-- Export results to CSV and/or JSON
-- Output to both console and file simultaneously
-
-### 📄 Hash List File Support
-- Load hash list file (TXT/CSV format) [planned]
-- Check for missing files or hashes [planned]
-
-### 🧠 Security Utilities
-- Detect different files with same hash (possible duplicate/malware)
-- Warn about hash collisions [planned]
-- Compare file size and modification time [planned]
-
-### 🌐 VirusTotal Integration (Planned)
-- Query VirusTotal using file hash
-- Display detection count and threat info
-- Manage API key via `.env` or config file
-
-### ⚙️ Config Management (Planned)
-- Set default algorithm, output format, and path in `.json` or `.ini`
-
-### 🖥 GUI Mode (Optional)
-- Build GUI using Tkinter or PyQt [planned]
-- Drag-and-drop file input
-- Highlight hash match/mismatch in color
-
----
-
-## 📦 Installation
-
-```bash
-git clone https://github.com/yourusername/FileHashChecker.git
-cd FileHashChecker
-pip install -r requirements.txt
-```
-
-🚀 Usage
-Basic usage:
-python FileHashChecker.py path/to/file
-
-With options:
-python FileHashChecker.py path/to/file -a sha1 -o result.json
-
-Available options:
-positional arguments:
-  file_path             Path to the file to calculate hash
-
-optional arguments:
-  -h, --help            Show this help message and exit
-  -a, --algorithm       Select hash algorithm (e.g., sha256, sha1, md5)
-  -o, --output          Path to save output (CSV or JSON)
-  --list-algorithms     Show available hash algorithms
-
-📚 Example
-python FileHashChecker.py example.exe -a sha256
-
-Output:
-File: example.exe
-Algorithm: SHA-256
-Hash: 6a7f3c6f75c...
-Match: ✅ (Matched with input hash)
-
-🔐 Future Plans
- VirusTotal API integration
-
- Full GUI support
-
- Save/load settings from config
-
- File integrity monitoring mode
-
- PyInstaller packaging for standalone .exe
-
-🛡 License
-This project is licensed under the MIT License.
-
-📫 Contact
-Feel free to open issues or contribute via pull requests.
-Project maintained by hanenako
+FileHashChecker-v2/
+├── hashchecker/
+│   ├── __init__.py
+│   ├── scanner.py         # 해시 계산 및 검사
+│   ├── snapshot.py        # 스냅샷 저장/비교
+│   ├── reporter.py        # 변화 리포트 출력
+│   └── notifier.py        # 알림
+├── snapshots/
+│   └── 2025-06-10-snapshot.json
+├── tests/
+│   └── test_scanner.py
+├── main.py                # CLI 실행 진입점
+├── requirements.txt
+└── README.md
