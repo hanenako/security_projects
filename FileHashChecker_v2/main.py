@@ -25,7 +25,8 @@ def main():
         changed = compare_snapshots(old, current)
         print_report(changed)
         if args.notify and changed['modified']:
-            send_alert(changed)
+            print("modified")
+            # send_alert(changed)
         return
 
     # 기본 동작: 즉시 출력
